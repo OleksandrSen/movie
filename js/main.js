@@ -49,7 +49,7 @@ $(document).ready(function () {
 
     function drawMovie(movie) {
         let movieDOM = `<div class="movie col-2">
-                            <img class="movie__header" src="../images/roll.png" alt="">
+                            <img class="movie__header" src="images/roll.png" alt="">
                             <img class="movie__poster" src="${IMG_URL + movie.poster_path}" alt="">
                             
                             <div class="movie__info">
