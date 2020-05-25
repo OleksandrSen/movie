@@ -1,0 +1,17 @@
+.search {
+    position: absolute;
+    right: 5%;
+    top: 2%;
+
+    &__field {
+        background: transparent;
+        border-bottom: 2px solid black;
+        padding-bottom: 5px;
+    }
+
+    &__btn {
+        text-transform: uppercase;
+        font-weight: 700;
+        cursor: pointer;
+    }
+}
