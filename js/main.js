@@ -50,8 +50,9 @@ $(document).ready(function () {
     function drawMovie(movie) {
         let movieDOM = `<div class="movie col-2">
                             <img class="movie__header" src="images/roll.png" alt="">
+                            <div class="movie__block">
                             <img class="movie__poster" src="${IMG_URL + movie.poster_path}" alt="">
-                            
+                            </div>
                             <div class="movie__info">
                             <h2 class="movie__title">${movie.title}</h2>
                                 <h3><b>Release date: </b>${movie.release_date}</h3>
@@ -72,6 +73,9 @@ $(document).ready(function () {
                 api_key: API_KEY
             }
         })
-
     }
+
+    $('.title').click(() => {
+        alert('111')
+    })
 })
