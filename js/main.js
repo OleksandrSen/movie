@@ -16,8 +16,12 @@ $(document).ready(function () {
             getMovie()
     })
 
+    $('.reviews__close').click(() => {
+        $('.window').addClass('hide')
+    })
+
     // functions
-    function getMovie() {
+    async function getMovie() {
         let query = $('.search__field').val()
 
         $('body').addClass('loading')
@@ -25,25 +29,51 @@ $(document).ready(function () {
         if (query !== '') {
             $('.movie').remove()
 
-            $.ajax({
-                url: `${API_URL}/search/movie`,
-                type: 'GET',
-                dataType: 'json',
-                data: {
-                    api_key: API_KEY,
-                    query: query
-                }
-            }).then((res) => {
+            let url = `${API_URL}/search/movie?api_key=${API_KEY}&query=${query}`
+            try {
+                let response = await fetch(url)
+                let res = await response.json()
+
                 if (res.results.length === 0) {
                     alert('No movie')
                 } else {
                     res.results.forEach((movie) => {
                         if (movie.poster_path !== null)
                             $('.movies').append(drawMovie(movie))
+                        $('.movie').click(() => {
+                            getReviews(movie.id)
+                        })
                     })
                 }
                 $('body').removeClass('loading')
-            })
+            } catch (e) {
+                alert('error')
+            }
+
+
+            // $.ajax({
+            //     url: `${API_URL}/search/movie`,
+            //     type: 'GET',
+            //     dataType: 'json',
+            //     data: {
+            //         api_key: API_KEY,
+            //         query: query
+            //     }
+            // }).then((res) => {
+            //     if (res.results.length === 0) {
+            //         alert('No movie')
+            //     } else {
+            //         res.results.forEach((movie) => {
+            //             if (movie.poster_path !== null)
+            //                 $('.movies').append(drawMovie(movie))
+            //         })
+            //         // showreview
+            //         $('.movie').click(() => {
+            //             alert('111')
+            //         })
+            //     }
+            //     $('body').removeClass('loading')
+            // })
         }
     }
 
@@ -63,19 +93,44 @@ $(document).ready(function () {
         return movieDOM
     }
 
-    function getReviews(id) {
+    /*async*/ function getReviews(id) {
+
+        // let url2 = `${API_URL}/movie/${id}/reviews?api_key=${API_KEY}`
+        // try {
+        //     let response = await fetch(url2)
+        //     let res = await response.json()
+        //     if (res.results.length !== 0) {
+        //         res.results.forEach((review) => {
+        //             let reviewsDOM = `<div class="review">
+        //                     <h2 class="review__author">${review.author}</h2>
+        //                     <p class="review__content">${review.content}</p>
+        //                     </div>`
+        //             $('.reviews').append(reviewsDOM);
+        //         });
+        //         $('.window').removeClass('hide')
+        //     }
+        // } catch (e) {
+        //     // alert('error')
+        // }
 
         $.ajax({
-            url: `${API_URL}/movie/${id}`,
+            url: `${API_URL}/movie/${id}/reviews`,
             type: 'GET',
             dataType: 'json',
             data: {
                 api_key: API_KEY
             }
+        }).then((res) => {
+            if (res.results.length !== 0) {
+                res.results.forEach((review) => {
+                    let reviewsDOM = `
+                    <h2 class="review__author">${review.author}</h2>
+                    <p class="review__content">${review.content}</p>`;
+
+                    $('.reviews').append(reviewsDOM);
+                });
+                $('.window').removeClass('hide')
+            }
         })
     }
-
-    $('.title').click(() => {
-        alert('111')
-    })
 })
