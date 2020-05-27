@@ -99,16 +99,13 @@ $(document).ready(function () {
         // try {
         //     let response = await fetch(url2)
         //     let res = await response.json()
-        //     if (res.results.length !== 0) {
-        //         res.results.forEach((review) => {
-        //             let reviewsDOM = `<div class="review">
+        //     res.results.forEach((review) => {
+        //         let reviewsDOM = `
         //                     <h2 class="review__author">${review.author}</h2>
-        //                     <p class="review__content">${review.content}</p>
-        //                     </div>`
-        //             $('.reviews').append(reviewsDOM);
-        //         });
-        //         $('.window').removeClass('hide')
-        //     }
+        //                     <p class="review__content">${review.content}</p>`
+        //         $('.reviews').append(reviewsDOM);
+        //     });
+        //     $('.window').removeClass('hide')
         // } catch (e) {
         //     // alert('error')
         // }
@@ -121,16 +118,14 @@ $(document).ready(function () {
                 api_key: API_KEY
             }
         }).then((res) => {
-            if (res.results.length !== 0) {
-                res.results.forEach((review) => {
-                    let reviewsDOM = `
+            res.results.forEach((review) => {
+                let reviewsDOM = `
                     <h2 class="review__author">${review.author}</h2>
                     <p class="review__content">${review.content}</p>`;
 
-                    $('.reviews').append(reviewsDOM);
-                });
-                $('.window').removeClass('hide')
-            }
+                $('.reviews').append(reviewsDOM);
+            });
+            $('.window').removeClass('hide')
         })
     }
 })
