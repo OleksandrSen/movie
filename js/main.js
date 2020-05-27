@@ -18,6 +18,7 @@ $(document).ready(function () {
 
     $('.reviews__close').click(() => {
         $('.window').addClass('hide')
+        $('.review').remove()
     })
 
     // functions
@@ -119,9 +120,9 @@ $(document).ready(function () {
             }
         }).then((res) => {
             res.results.forEach((review) => {
-                let reviewsDOM = `
+                let reviewsDOM = `<div class="review">
                     <h2 class="review__author">${review.author}</h2>
-                    <p class="review__content">${review.content}</p>`;
+                    <p class="review__content">${review.content}</p></div>`;
 
                 $('.reviews').append(reviewsDOM);
             });
