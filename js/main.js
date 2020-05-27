@@ -94,39 +94,39 @@ $(document).ready(function () {
         return movieDOM
     }
 
-    /*async*/ function getReviews(id) {
+    async function getReviews(id) {
 
-        // let url2 = `${API_URL}/movie/${id}/reviews?api_key=${API_KEY}`
-        // try {
-        //     let response = await fetch(url2)
-        //     let res = await response.json()
-        //     res.results.forEach((review) => {
-        //         let reviewsDOM = `
-        //                     <h2 class="review__author">${review.author}</h2>
-        //                     <p class="review__content">${review.content}</p>`
-        //         $('.reviews').append(reviewsDOM);
-        //     });
-        //     $('.window').removeClass('hide')
-        // } catch (e) {
-        //     // alert('error')
-        // }
-
-        $.ajax({
-            url: `${API_URL}/movie/${id}/reviews`,
-            type: 'GET',
-            dataType: 'json',
-            data: {
-                api_key: API_KEY
-            }
-        }).then((res) => {
+        let url2 = `${API_URL}/movie/${id}/reviews?api_key=${API_KEY}`
+        try {
+            let response = await fetch(url2)
+            let res = await response.json()
             res.results.forEach((review) => {
                 let reviewsDOM = `<div class="review">
-                    <h2 class="review__author">${review.author}</h2>
-                    <p class="review__content">${review.content}</p></div>`;
-
+                                <h2 class="review__author">${review.author}</h2>
+                                <p class="review__content">${review.content}</p></div>`
                 $('.reviews').append(reviewsDOM);
             });
             $('.window').removeClass('hide')
-        })
+        } catch (e) {
+            alert('error')
+        }
+
+        //     $.ajax({
+        //         url: `${API_URL}/movie/${id}/reviews`,
+        //         type: 'GET',
+        //         dataType: 'json',
+        //         data: {
+        //             api_key: API_KEY
+        //         }
+        //     }).then((res) => {
+        //         res.results.forEach((review) => {
+        //             let reviewsDOM = `<div class="review">
+        //                 <h2 class="review__author">${review.author}</h2>
+        //                 <p class="review__content">${review.content}</p></div>`;
+
+        //             $('.reviews').append(reviewsDOM);
+        //         });
+        //         $('.window').removeClass('hide')
+        //     })
     }
 })
