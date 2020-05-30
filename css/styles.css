@@ -201,7 +201,7 @@ body {
   margin: 0 auto;
   background: #ffffff;
   color: black;
-  position: absolute;
+  position: fixed;
   top: 30%;
   left: 50%;
   -webkit-transform: translateX(-50%);
